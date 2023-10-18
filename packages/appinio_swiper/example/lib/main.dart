@@ -52,8 +52,8 @@ class _ExamplePageState extends State<Example> {
               unlimitedUnswipe: true,
               controller: controller,
               unswipe: _unswipe,
-              listenAction: (scale, angle) {
-                log("$scale  $angle");
+              listenAction: (scale, angle, direction) {
+                log("$scale  $angle $direction");
               },
               onSwiping: (AppinioSwiperDirection direction) {
                 debugPrint(direction.toString());
