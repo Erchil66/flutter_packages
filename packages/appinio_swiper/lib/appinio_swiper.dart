@@ -342,11 +342,7 @@ class _AppinioSwiperState extends State<AppinioSwiper>
     int j = 1;
     double difference = _difference;
     double scale = _scale;
-    widget.listenAction!(
-      _scale,
-      _left,
-      _calculateDirection(top: _top, left: _left),
-    );
+
     while ((i < widget.cardsCount || widget.loop) &&
         j <= widget.backgroundCardsCount) {
       backgroundCards.add(_backgroundItem(constraints, i, difference, scale));
@@ -478,6 +474,11 @@ class _AppinioSwiperState extends State<AppinioSwiper>
 
   Future<void> _onSwiping() async {
     widget.onSwiping?.call(_calculateDirection(top: _top, left: _left));
+    widget.listenAction!(
+      _scale,
+      _left,
+      _calculateDirection(top: _top, left: _left),
+    );
   }
 
   void _calculateAngle() {
