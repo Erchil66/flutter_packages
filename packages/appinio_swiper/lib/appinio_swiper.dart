@@ -36,7 +36,7 @@ class AppinioSwiper extends StatefulWidget {
   /// add listener to check when the card is swiping
   final void Function(AppinioSwiperDirection direction)? onSwiping;
 
-  final Function(Animation<double> scale, double angle,
+  final Function(double scale, double angle,
       AppinioSwiperDirection direction)? listenAction;
 
   /// padding of the swiper
@@ -475,8 +475,8 @@ class _AppinioSwiperState extends State<AppinioSwiper>
   Future<void> _onSwiping() async {
     widget.onSwiping?.call(_calculateDirection(top: _top, left: _left));
     widget.listenAction!(
-      _leftAnimation,
       _angle,
+      _left,
       _calculateDirection(top: _top, left: _left),
     );
   }
