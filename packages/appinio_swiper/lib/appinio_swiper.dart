@@ -36,8 +36,10 @@ class AppinioSwiper extends StatefulWidget {
   /// add listener to check when the card is swiping
   final void Function(AppinioSwiperDirection direction)? onSwiping;
 
-  final Function(double scale, double angle,
+  final Function(double scale, DragUpdateDetails angle,
       AppinioSwiperDirection direction)? listenAction;
+
+ 
 
   /// padding of the swiper
   final EdgeInsetsGeometry padding;
@@ -101,6 +103,7 @@ class AppinioSwiper extends StatefulWidget {
     this.onSwiping,
     this.onEnd,
     this.unswipe,
+
     this.direction = AppinioSwiperDirection.right,
   })  : assert(maxAngle >= 0 && maxAngle <= 360),
         assert(threshold >= 1 && threshold <= 100),
@@ -123,6 +126,7 @@ class _AppinioSwiperState extends State<AppinioSwiper>
   double _backgroundCardsDifference = 40;
   final double _backgroundCardsScaleDifference = 0.1;
   int currentIndex = 0;
+  DragUpdateDetails? positionPanUpdate;    
 
   int _swipeType = 0; // 1 = swipe, 2 = unswipe, 3 = goBack
   bool _tapOnTop = false; //position of starting drag point on card
@@ -403,6 +407,7 @@ class _AppinioSwiperState extends State<AppinioSwiper>
         onPanUpdate: (tapInfo) {
           if (!widget.isDisabled) {
             setState(() {
+              positionPanUpdate = tapInfo;
               final swipeOption = widget.swipeOptions;
 
               if (swipeOption.allDirections) {
@@ -476,7 +481,7 @@ class _AppinioSwiperState extends State<AppinioSwiper>
     widget.onSwiping?.call(_calculateDirection(top: _top, left: _left));
     widget.listenAction!(
       _angle,
-      _left,
+      positionPanUpdate!,
       _calculateDirection(top: _top, left: _left),
     );
   }
