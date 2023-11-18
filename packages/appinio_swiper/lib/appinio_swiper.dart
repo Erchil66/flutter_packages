@@ -476,7 +476,7 @@ class _AppinioSwiperState extends State<AppinioSwiper>
     widget.onSwiping?.call(_calculateDirection(top: _top, left: _left));
     widget.listenAction!(
       _leftAnimation,
-      _difference,
+      _angle,
       _calculateDirection(top: _top, left: _left),
     );
   }
